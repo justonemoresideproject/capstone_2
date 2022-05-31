@@ -7,6 +7,7 @@ import Customers from './Admin/Customers'
 import Orders from './Admin/Orders'
 import Profile from './Profile'
 import Addresses from './Admin/Addresses'
+import Checkout from './CheckOut'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
 import NotFound from './NotFound'
@@ -42,6 +43,10 @@ function AppRoutes() {
                     <Route
                         path="login"
                         element={<Login />}
+                    />
+                    <Route
+                        path="checkout"
+                        element={<Checkout />}
                     />
                     <Route
                         path="register"

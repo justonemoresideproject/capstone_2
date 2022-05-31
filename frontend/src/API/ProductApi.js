@@ -1,10 +1,10 @@
 const CommonApi = require('./CommonApi')
 
 class ProductApi {
-    static async create(productInfo) {
+    static async add(productInfo) {
       const res = await CommonApi.request('products/create', productInfo, 'post')
 
-      return res.product
+      return res
     }
 
     static async get(id) {

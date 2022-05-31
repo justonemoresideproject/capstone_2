@@ -27,7 +27,7 @@ function Login() {
     return (
         <>
             <h1>Login</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor='username'>Username:</label>
                 <input type='text' name='username' onChange={handleChange} value={formData.username}/>
 

@@ -1,12 +1,14 @@
+import './ComponentCss/Home.css'
+
 import { Outlet } from 'react-router';
-import Navbar from './Navbar'
+import NavigationBar from './Nav/Navbar'
 
 function Home() {
     return (
-        <>
-            <Navbar />
+        <div className='homeWrapper'>
+            <NavigationBar />
             <Outlet />
-        </>
+        </div>
     )
 }
 

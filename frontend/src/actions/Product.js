@@ -2,6 +2,14 @@ import { ADD_PRODUCT, REMOVE_PRODUCT } from './types'
 
 const { all, get, add, remove } = require('../API/ProductApi')
 
+function getProductFromApi(id) {
+    return async function(dispatch) {
+        const product = await get(id)
+
+        dispatch(addProduct(product))
+    }
+}
+
 function getProductsFromApi() {
     return async function(dispatch) {
         const products = await all()
@@ -9,6 +17,22 @@ function getProductsFromApi() {
         products.forEach(product => {
             dispatch(addProduct(product))
         })
+    }
+}
+
+function addProductToApi(product) {
+    return async function(dispatch) {
+        const newProduct = await add(product)
+
+        dispatch(addProduct(newProduct))
+    }
+}
+
+function removeProductFromApi(id) {
+    return async function(dispatch) {
+        const product = await remove(id)
+
+        dispatch(removeProduct(id))
     }
 }
 
@@ -32,4 +56,4 @@ function removeProduct(id) {
     }
 }
 
-export { getProductsFromApi, addProduct, removeProduct }
+export { removeProductFromApi, getProductFromApi, addProductToApi, getProductsFromApi, addProduct, removeProduct }

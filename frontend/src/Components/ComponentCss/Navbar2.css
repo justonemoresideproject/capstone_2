@@ -1,0 +1,69 @@
+.navMenu {
+    align-content: flex-start;
+    justify-content: space-evenly;
+    
+    list-style-type: none;
+    display: inline-flex;
+
+    background-color: black;
+
+    width: 100vw;
+    top: 0;
+
+    margin-top: 0;
+    padding-top: 0;
+
+    overflow: hidden;
+}
+
+.navMenu .navItem {
+    text-align: justify;
+
+    text-decoration: none;
+    font-size: 20px;
+
+    align-self: baseline;
+    align-content: flex-start;
+
+    padding: 0px 12px 0px 12px;
+    margin-top: 0px;
+    
+    /* width: 50px;
+    height: 100%; */
+}
+
+.navMenu .navItem:hover {
+    background-color: white;
+}
+
+.navLink {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+
+    text-decoration: none;
+}
+
+.navButton {
+    width: 4rem;
+    height: 2.5rem;
+
+    padding: 2px 12px 8px 12px;
+}
+
+.dropDown {
+    display: none;
+    list-style-type: none;
+}
+
+.dropDown-show {
+    display: block;
+    list-style-type: none;
+    position: absolute;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+.dropDown-show .navitem {
+    position: relative;
+
+}
