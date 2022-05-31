@@ -6,6 +6,7 @@ const express = require("express");
 const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/user");
+const Customer = require("../models/customer");
 const { createToken } = require("../helpers/tokens");
 const userNewSchema = require("../schemas/userRegister.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
@@ -56,35 +57,71 @@ router.get("/", ensureAdmin, async function (req, res, next) {
     }
 });
 
-/** GET /[username] => { user }
+/** GET /[userId] => { user }
  *
  * Returns { username, firstName, lastName, isAdmin, jobs }
  *   where jobs is { id, title, companyHandle, companyName, state }
  *
- * Authorization required: admin or same user-as-:username
+ * Authorization required: admin or same user
  **/
 
-router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.get("/:userId", ensureCorrectUserOrAdmin, async function (req, res, next) {
     try {
-        const user = await User.get(req.params.username);
-        console.log("User Route")
+        const user = await User.getById(req.params.userId);
+
         return res.json({ user });
     } catch (err) {
         return next(err);
     }
 });
 
-/** PATCH /[username] { user } => { user }
+/**Get /orders/[userId] => { orders }
+ * 
+ * Returns [{orderId, customerId, addressId, status}, {orderId...} ]
+ *
+ * Authorization required: Admin or same user 
+ **/
+
+router.get("/orders/:userId", ensureCorrectUserOrAdmin, async function (req, res, next) {
+    try {
+        const customer = await Customer.findUser(req.params.userId)
+
+        const orders = await Order.get({customerId: customer.id})
+
+        return res.status(201).json({ orders })
+    } catch (err) {
+        return next(err);
+    }
+})
+
+/**Get /addresses/[userId] => { adderesses }
+ * 
+ * Authorization: Admin or correct user
+ */
+
+router.get("/addresses/:userId", ensureCorrectUserOrAdmin, async function(req, res, next) {
+    try {
+        const customer = await Customer.findUser(req.params.userId)
+
+        const addresses = await Address.get({customerId: customer.id})
+
+        return res.status(201).json({ addresses })
+    } catch (err) {
+        return next(err);
+    }
+})
+
+/** PATCH /[userId] { user } => { user }
  *
  * Data can include:
  *   { firstName, lastName, password, email }
  *
  * Returns { username, firstName, lastName, email, isAdmin }
  *
- * Authorization required: admin or same-user-as-:username
+ * Authorization required: admin or correct user
  **/
 
-router.patch("/:username", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.patch("/:userId", ensureCorrectUserOrAdmin, async function (req, res, next) {
     try {
         const validator = jsonschema.validate(req.body, userUpdateSchema);
         if (!validator.valid) {
@@ -92,7 +129,7 @@ router.patch("/:username", ensureCorrectUserOrAdmin, async function (req, res, n
             throw new BadRequestError(errs);
         }
 
-        const user = await User.update(req.params.username, req.body);
+        const user = await User.update(req.params.userId, req.body);
         return res.status(201).json({ user });
     } catch (err) {
         return next(err);

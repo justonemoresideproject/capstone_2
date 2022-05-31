@@ -166,16 +166,16 @@ class Order {
         let whereExpressions = []
         let queryValues = []
 
-        const { id, userId, addressId, status } = searchFilters
+        const { id, customerId, addressId, status } = searchFilters
 
         if(id) {
             queryValues.push(id)
             whereExpressions.push(`id = $${queryValues.length}`)
         }
 
-        if(userId) {
-            queryValues.push(userId)
-            whereExpressions.push(`user_id = $${queryValues.length}`)
+        if(customerId) {
+            queryValues.push(customerId)
+            whereExpressions.push(`customer_id = $${queryValues.length}`)
         }
 
         if(addressId) {
