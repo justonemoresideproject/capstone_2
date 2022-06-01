@@ -122,26 +122,26 @@ class Order {
 
         const createdAt = new Date()
         const res = await db.query(`
-        INSERT INTO orders 
-        (
-            customer_id, 
-            address_id, 
-            created_at, 
-            delivered_status
-        ) 
-        VALUES ($1, $2, $3, $4) 
-        RETURNING 
-            id,
-            customer_id AS customerId, 
-            address_id AS addressId, 
-            created_at AS createdAt,
-            delivered_status AS status`, 
-        [
-            customerId,
-            addressId,
-            createdAt,
-            'notDelivered'
-        ])
+            INSERT INTO orders 
+            (
+                customer_id, 
+                address_id, 
+                created_at, 
+                delivered_status
+            ) 
+            VALUES ($1, $2, $3, $4) 
+            RETURNING 
+                id,
+                customer_id AS customerId, 
+                address_id AS addressId, 
+                created_at AS createdAt,
+                delivered_status AS status`, 
+            [
+                customerId,
+                addressId,
+                createdAt,
+                'notDelivered'
+            ])
 
         const order = res.rows[0]
 

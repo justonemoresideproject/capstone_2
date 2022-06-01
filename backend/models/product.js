@@ -38,41 +38,37 @@ class Product {
         return productPrice
     }
 
-    static async allCurrency(){
-        const results = await db.query(`SELECT currency FROM products`)
-
-        const productCurrency = results.rows[0]
-
-        return productCurrency
-    }
-
     static async add({
         name,
+        published = true,
         description,
         price,
-        currency
+        imageSrc
     }) {
         const result = await db.query(`
         INSERT INTO products 
         (
             name,
+            published,
             description,
             price,
-            currency
+            image_source
         )
         VALUES ($1, $2, $3, $4)
         RETURNING
             id,
             name,
+            published,
             description,
             price,
-            currency
+            image_source
         `,
         [
             name,
+            published,
             description,
             price,
-            currency
+            imageSrc
         ])
 
         const product = result.rows[0]
@@ -89,7 +85,7 @@ class Product {
 
         const { setCols, values } = sqlForPartialUpdate(
             data,
-            {});
+            {imageSrc: "image_source"});
 
         const idVarIdx = "$" + (values.length + 1);
 
@@ -101,9 +97,10 @@ class Product {
             RETURNING
                 id,
                 name, 
+                published,
                 description,
                 price,
-                currency
+                image_source
         `;
         const result = await db.query(querySql, [...values, id]);
 
@@ -124,55 +121,38 @@ class Product {
         return product
     }
 
-    static async addImage({url, productId}){
-        const productCheck = await db.query(`SELECT * FROM products WHERE id = $1`, [productId])
 
-        if(!productCheck){
-            throw new NotFoundError('Unknown Product Id ')
-        }
+    // Can be erased since the image update is already handled in the product update
 
-        const result = await db.query(`
-        INSERT INTO product_images (url, product_id) 
-        VALUES ($1, $2) 
-        RETURNING 
-            id, 
-            url, 
-            product_id AS "productId"`, [url, productId])
+    // static async updateProductImage(id, imageSrc){
+    //     const imageCheck = await db.query(`SELECT * FROM products WHERE id = $1`, [id])
 
-        const product_image = result.rows[0]
+    //     if(!imageCheck){
+    //         throw new NotFoundError('Product not found')
+    //     }
 
-        return product_image
-    }
+    //     const { setCols, values } = sqlForPartialUpdate(
+    //         data,
+    //         {});
 
-    static async updateImage(id, data){
-        const imageCheck = await db.query(`SELECT * FROM product_images WHERE id = $1`, [id])
+    //     const idVarIdx = "$" + (values.length + 1);
 
-        if(!imageCheck){
-            throw new NotFoundError('Image not found')
-        }
+    //     const querySql = 
+    //     `
+    //         UPDATE product_images 
+    //         SET ${setCols} 
+    //         WHERE id = ${idVarIdx} 
+    //         RETURNING 
+    //             id, 
+    //             url,
+    //             product_id AS "productId"
+    //     `;
+    //     const result = await db.query(querySql, [...values, id]);
 
-        const { setCols, values } = sqlForPartialUpdate(
-            data,
-            {});
+    //     const image = result.rows[0]
 
-        const idVarIdx = "$" + (values.length + 1);
-
-        const querySql = 
-        `
-            UPDATE product_images 
-            SET ${setCols} 
-            WHERE id = ${idVarIdx} 
-            RETURNING 
-                id, 
-                url,
-                product_id AS "productId"
-        `;
-        const result = await db.query(querySql, [...values, id]);
-
-        const image = result.rows[0]
-
-        return image
-    }
+    //     return image
+    // }
 
     static async remove(id){
         const result = await db.query(
@@ -187,19 +167,21 @@ class Product {
         }
     }
 
-    static async removeImage(id){
-        const result = await db.query(
-            `DELETE
-            FROM product_images
-            WHERE id = $1`, [id]
-        )
+    // Can be deleted since the image table is no longer necessary
 
-        const image = result.rows[0]
+    // static async removeImage(id){
+    //     const result = await db.query(
+    //         `DELETE
+    //         FROM product_images
+    //         WHERE id = $1`, [id]
+    //     )
 
-        if(!image){
-            throw new NotFoundError(`Unknown image id: ${id}`)
-        }
-    }
+    //     const image = result.rows[0]
+
+    //     if(!image){
+    //         throw new NotFoundError(`Unknown image id: ${id}`)
+    //     }
+    // }
 }
 
 module.exports = Product

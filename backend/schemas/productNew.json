@@ -15,10 +15,13 @@
             "type": "number",
             "exclusiveMinimum": 0
         },
-        "currency": {
+        "published": {
+            "type": "boolean"
+        },
+        "imageSrc": {
             "type": "string",
-            "minLength": 3,
-            "maxLength": 3
+            "minLength": 1,
+            "maxLength": 80
         }
     },
     "additionalProperties": false,
