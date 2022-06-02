@@ -11,22 +11,33 @@
     top: 0;
 
     margin-top: 0;
+    margin-bottom: 0;
     padding-top: 0;
+    padding-bottom: 0;
 
     overflow: hidden;
 }
 
 .navMenu .navItem {
-    text-align: justify;
+    text-align:center;
 
     text-decoration: none;
-    font-size: 20px;
+    font-size: 25px;
 
     align-self: baseline;
     align-content: flex-start;
 
-    padding: 0px 12px 0px 12px;
+    /* margin-bottom: 0px;
     margin-top: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    padding-top: 15px;
+    padding-bottom: 15px; */
+
+    height: inherit;
+
+    width: 20vw;
     
     /* width: 50px;
     height: 100%; */
@@ -36,18 +47,20 @@
     background-color: white;
 }
 
-.navLink {
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-
-    text-decoration: none;
-}
-
 .navButton {
-    width: 4rem;
-    height: 2.5rem;
+    width: 100%;
+    height: 100%;
 
-    padding: 2px 12px 8px 12px;
+    padding: 0px;
+    margin: 0px;
+
+    background: transparent;
+    color: purple;
+
+    font-size: 25px;
+
+    box-shadow: none;
+    border: none;
 }
 
 .dropDown {
@@ -58,12 +71,31 @@
 .dropDown-show {
     display: block;
     list-style-type: none;
+
     position: absolute;
-    padding-left: 0px;
-    margin-left: 0px;
+
+    padding: 0px;
+    margin: 0px;
+
+    width:inherit;
+    overflow: hidden;
+
+    background-color: black;
 }
 
-.dropDown-show .navitem {
+.dropDown-show > .navItem {
     position: relative;
 
+    width: 100%;
+}
+
+.dropDown-show > .navItem > .navLink {
+    width: inherit;
+    margin: 0px;
+    padding: 0px;
+}
+
+.dropDown-show > .navItem:hover {
+    background-color: white;
+    width: 100%;
 }

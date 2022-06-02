@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import AuthApi from '../../API/AuthApi'
 import { login } from '../../actions/Auth'
 import { Navigate } from 'react-router-dom';
 

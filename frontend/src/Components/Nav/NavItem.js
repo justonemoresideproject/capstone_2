@@ -7,8 +7,7 @@ import Dropdown from "./Dropdown"
 
 function NavItem({item}) {
     const [dropDown, setDropDown] = useState(false)
-    console.log(dropDown)
-    console.log(item)
+    
     return (
         <li className='navItem'>
             {item.submenu ? (

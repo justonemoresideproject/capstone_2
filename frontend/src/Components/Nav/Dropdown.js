@@ -3,8 +3,6 @@ import '../ComponentCss/Navbar2.css'
 import { NavLink } from 'react-router-dom';
 
 function Dropdown({submenu, dropDown}) {
-    console.log(`Dropdown: ${dropDown}`)
-    console.log(`Submenu: ${submenu}`)
     return (
         <ul 
             className={`dropDown${dropDown ? "-show" : ""}`}>
@@ -12,7 +10,7 @@ function Dropdown({submenu, dropDown}) {
                 console.log(item)
                 return (
                 <li className="navItem" key={index}>
-                    <NavLink 
+                    <NavLink className="navLink"
                         to={item.location}>
                         {item.title}
                     </NavLink>
