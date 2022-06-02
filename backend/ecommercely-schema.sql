@@ -25,16 +25,12 @@ CREATE TABLE users (
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50),
-    description VARCHAR(100),
+    name VARCHAR(200),
+    published BOOLEAN,
+    description VARCHAR(300),
+    variant_sku VARCHAR(100),
     price NUMERIC(10, 2),
-    currency VARCHAR(3)
-);
-
-CREATE TABLE product_images (
-    id SERIAL PRIMARY KEY,
-    url VARCHAR(100) NOT NULL,
-    product_id int
+    image_source VARCHAR(300)
 );
 
 CREATE TABLE shipping_addresses (

@@ -6,6 +6,7 @@ INSERT INTO customers (userId, first_name, last_name, created_at, email, phone) 
         'jimbo@gmail.com',
         1112223333
 ), (
+        '1'
         'admin',
         'test',
         '2022-05-04 15:00:00',
@@ -33,7 +34,20 @@ VALUES (
                 TRUE
         );
 
-INSERT INTO products (name, description, price, currency) VALUES ('dog food', 'yummy delicious dog food', 9.99, 'USD');
-
-INSERT INTO product_images (url, product_id) VALUES ('http@gasdf.jpg', 1);
-
+INSERT INTO products (name, published, description, variant_sku, price, image_source) 
+VALUES (
+                '#9FT Large Icing Piping Nozzles Russian Nozzles Pastry Tips Cookies Cake Decorating Tools Tips Cream Fondant Pastry Nozzles',
+                TRUE,
+                null,
+                '30703423-9ft',
+                1.7,
+                'https://cdn.shopify.com/s/files/1/0252/8251/0902/products/product-image-1277715434.jpg?v=1584384449'
+        ),
+        (
+                '1pc 8CM White Wooden Letters English Alphabet DIY Personalised Name Design Art Craft Wedding Home Decor letters room decoration',
+                FALSE,
+                null,
+                '29103397-zm-g-8cm',
+                1.74,
+                'https://cdn.shopify.com/s/files/1/0252/8251/0902/products/product-image-1281285192.jpg?v=1584384461'
+        );

@@ -14,7 +14,7 @@ function getDatabaseUri() {
     return (process.env.NODE_ENV === "test")
         ? "ecommercely_test"
         : process.env.DATABASE_URL || "ecommercely";
-}   
+}
 
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
 //
